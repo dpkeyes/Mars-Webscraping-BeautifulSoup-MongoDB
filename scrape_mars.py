@@ -6,14 +6,15 @@ from bs4 import BeautifulSoup
 from splinter import Browser
 from selenium import webdriver
 
-# Define executable path and create a 'browser' instance
-executable_path = {'executable_path': '/usr/local/bin/chromedriver'}
-browser = Browser('chrome', **executable_path, headless=False)
-
 ## -------------------------------------------------------------------------------
 
 # Define function to grab title and description of top news story from mars news website
 def mars_news():
+
+    # Define executable path and create a 'browser' instance
+    executable_path = {'executable_path': '/usr/local/bin/chromedriver'}
+    browser = Browser('chrome', **executable_path, headless=False)
+
     # Define url, use splinter to visit the url, get the response object, and create the beautiful soup object.
     url = 'https://mars.nasa.gov/news/?page=0&per_page=40&order=publish_date+desc%2Ccreated_at+desc&search=&category=19%2C165%2C184%2C204&blank_scope=Latest'
     browser.visit(url)
@@ -21,40 +22,53 @@ def mars_news():
     soup = BeautifulSoup(response, 'html.parser')
 
     # Find the most recent article (i.e., the top article)
-    news_title = soup.find_all('div', class_='content_title')[0].text
-    news_p = soup.find_all('div', class_='article_teaser_body')[0].text
+    news_title = soup.find('div', class_='content_title').text
+    news_p = soup.find('div', class_='article_teaser_body').text
+
+    # Close the browser
+    browser.windows[0].close()
     
     return news_title, news_p
 
 ## -------------------------------------------------------------------------------
 
-# # Define function to grab the featured image from JPL Mars Space Images website
-# def featured_image():
-#     # Define url (base to be used in final url path calculation and mars specific for page visit),
-#     # use splinter to visit the url, navigate the site, get the response object, 
-#     # and create the beautiful soup object.
-#     base_url = 'https://www.jpl.nasa.gov'
-#     mars_url = 'https://www.jpl.nasa.gov/spaceimages/?search=&category=Mars'
-#     browser.visit(mars_url)
+# Define function to grab the featured image from JPL Mars Space Images website
+def featured_image():
 
-#     featured_image_xpath = '//*[@id="full_image"]'
-#     browser.find_by_xpath(featured_image_xpath)[0].click()
-#     response = browser.html
-#     soup = BeautifulSoup(response, 'html.parser')
+    # Define executable path and create a 'browser' instance
+    executable_path = {'executable_path': '/usr/local/bin/chromedriver'}
+    browser = Browser('chrome', **executable_path, headless=False)
 
-#     # Find the featured image url. 
-#     featured_image_path = soup.find_all('img', class_='fancybox-image')#find('div', id='fancybox-lock').\
-#                            #find('div', class_='fancybox-inner fancybox-skin fancybox-dark-skin').contents
-#     featured_image_path
-#     # featured_image_path = image['src']
-#     # featured_image_url = base_url + featured_image_path
+    # Define url (base to be used in final url path calculation and mars specific for page visit),
+    # use splinter to visit the url, navigate the site, get the response object, 
+    # and create the beautiful soup object.
+    base_url = 'https://www.jpl.nasa.gov'
+    mars_url = 'https://www.jpl.nasa.gov/spaceimages/?search=&category=Mars'
+    browser.visit(mars_url)
 
-#     return featured_image_url
+    featured_image_xpath = '//*[@id="full_image"]'
+    browser.find_by_xpath(featured_image_xpath)[0].click()
+    response = browser.html
+    soup = BeautifulSoup(response, 'html.parser')
+
+    # Find the featured image url. 
+    featured_image_path = soup.find_all('img', class_='fancybox-image')['src']
+    featured_image_url = base_url + featured_image_path
+
+    # Close the browser
+    browser.windows[0].close()
+
+    return featured_image_url
 
 ## -------------------------------------------------------------------------------
 
 # Define function to grab latest Mars Weather Tweet
 def mars_tweet():
+
+    # Define executable path and create a 'browser' instance
+    executable_path = {'executable_path': '/usr/local/bin/chromedriver'}
+    browser = Browser('chrome', **executable_path, headless=False)
+
     # Define url, use splinter to visit the url, get the response object, and create the beautiful soup object.
     url = 'https://twitter.com/marswxreport?lang=en'
     browser.visit(url)
@@ -67,6 +81,9 @@ def mars_tweet():
 
     # Clean up the text by replacing \n's with spaces and removing the url at the end.
     mars_weather = mars_weather.replace('\n', ' ')
+
+    # Close the browser
+    browser.windows[0].close()
     
     return mars_weather
 
@@ -74,6 +91,11 @@ def mars_tweet():
 
 # Define function to grab Mars Facts Table
 def mars_table():
+
+    # Define executable path and create a 'browser' instance
+    executable_path = {'executable_path': '/usr/local/bin/chromedriver'}
+    browser = Browser('chrome', **executable_path, headless=False)
+
     # Define url, use splinter to visit the url, get the response object, and create the beautiful soup object.
     url = 'https://space-facts.com/mars/'
     browser.visit(url)
@@ -91,6 +113,9 @@ def mars_table():
     # Convert the table to an html string
     final_table = mars_facts_dataframe.to_html()
 
+    # Close the browser
+    browser.windows[0].close()
+
     return final_table
 
 ## -------------------------------------------------------------------------------
@@ -98,6 +123,11 @@ def mars_table():
 # Define function to grab dictionaries of Mars Hemisphere Image URLs stored in a list
 
 def mars_hemispheres():
+
+    # Define executable path and create a 'browser' instance
+    executable_path = {'executable_path': '/usr/local/bin/chromedriver'}
+    browser = Browser('chrome', **executable_path, headless=False)
+
     # Define base url and mars search url, define lists for hemisphere names and for image_urls,
     # iterate through each hemisphere type to find the src of the image via beautiful soup, and populate the dictionary.
     base_url = 'https://astrogeology.usgs.gov'
@@ -127,6 +157,9 @@ def mars_hemispheres():
         temp_dict = {'title': hemispheres_list[i], 'img_url': img_url}   
         hemisphere_image_urls.append(temp_dict)
     
+    # Close the browser
+    browser.windows[0].close()
+
     return hemisphere_image_urls
 
 ## -------------------------------------------------------------------------------
@@ -138,7 +171,7 @@ def scrape():
     
     # Define variables representing outputs of functions
     news_title, news_p = mars_news()
-    #image = featured_image()
+    image = featured_image()
     tweet = mars_tweet()
     table = mars_table()
     hemispheres = mars_hemispheres()
@@ -146,13 +179,13 @@ def scrape():
     scrape_dict = {
         'article_headline': news_title,
         'article_description': news_p,
-        #'featured_image': image,
+        'featured_image': image,
         'tweet': tweet,
         'table': table,
         'hemisphere_images': hemispheres
     }
 
-    return scrape_dict
     print(scrape_dict)
+    return scrape_dict
 
 scrape()
