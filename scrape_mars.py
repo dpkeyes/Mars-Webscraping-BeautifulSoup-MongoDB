@@ -36,33 +36,33 @@ def mars_news():
 
 ## -------------------------------------------------------------------------------
 
-# Define function to grab the featured image from JPL Mars Space Images website
-def featured_image():
+# # Define function to grab the featured image from JPL Mars Space Images website
+# def featured_image():
 
-    # Define executable path and create a 'browser' instance
-    executable_path = {'executable_path': '/usr/local/bin/chromedriver'}
-    browser = Browser('chrome', **executable_path, headless=False)
+#     # Define executable path and create a 'browser' instance
+#     executable_path = {'executable_path': '/usr/local/bin/chromedriver'}
+#     browser = Browser('chrome', **executable_path, headless=False)
 
-    # Define url (base to be used in final url path calculation and mars specific for page visit),
-    # use splinter to visit the url, navigate the site, get the response object, 
-    # and create the beautiful soup object.
-    base_url = 'https://www.jpl.nasa.gov'
-    mars_url = 'https://www.jpl.nasa.gov/spaceimages/?search=&category=Mars'
-    browser.visit(mars_url)
+#     # Define url (base to be used in final url path calculation and mars specific for page visit),
+#     # use splinter to visit the url, navigate the site, get the response object, 
+#     # and create the beautiful soup object.
+#     base_url = 'https://www.jpl.nasa.gov'
+#     mars_url = 'https://www.jpl.nasa.gov/spaceimages/?search=&category=Mars'
+#     browser.visit(mars_url)
 
-    featured_image_xpath = '//*[@id="full_image"]'
-    browser.find_by_xpath(featured_image_xpath)[0].click()
-    response = browser.html
-    soup = BeautifulSoup(response, 'html.parser')
+#     featured_image_xpath = '//*[@id="full_image"]'
+#     browser.find_by_xpath(featured_image_xpath)[0].click()
+#     response = browser.html
+#     soup = BeautifulSoup(response, 'html.parser')
 
-    # Find the featured image url. 
-    featured_image_path = soup.find('img', class_='fancybox-image')['src']
-    featured_image_url = base_url + featured_image_path
+#     # Find the featured image url. 
+#     featured_image_path = soup.find_all('img', class_='fancybox-image')[0]['src']
+#     featured_image_url = base_url + featured_image_path
 
-    # Close the browser
-    browser.quit()
+#     # Close the browser
+#     browser.quit()
 
-    return featured_image_url
+#     return featured_image_url
 
 ## -------------------------------------------------------------------------------
 
@@ -175,7 +175,7 @@ def scrape():
     
     # Define variables representing outputs of functions
     news_title, news_p = mars_news()
-    image = featured_image()
+    # image = featured_image()
     tweet = mars_tweet()
     table = mars_table()
     hemispheres = mars_hemispheres()
@@ -184,7 +184,7 @@ def scrape():
     scrape_dict = {
         'article_headline': news_title,
         'article_description': news_p,
-        'featured_image': image,
+        # 'featured_image': image,
         'tweet': tweet,
         'table': table,
         'hemisphere_images': hemispheres
