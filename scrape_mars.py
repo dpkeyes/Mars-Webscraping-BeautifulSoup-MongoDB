@@ -21,8 +21,8 @@ def mars_news():
     soup = BeautifulSoup(response, 'html.parser')
 
     # Find the most recent article (i.e., the top article)
-    news_title = soup.find('div', class_='content_title').text
-    news_p = soup.find('div', class_='article_teaser_body').text
+    news_title = soup.find_all('div', class_='content_title')[0].text
+    news_p = soup.find_all('div', class_='article_teaser_body')[0].text
     
     return news_title, news_p
 
