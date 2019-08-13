@@ -28,10 +28,10 @@ def index():
 @app.route("/scrape")
 def scraper():
     import scrape_mars
-
-    mars_collection = db.mars
     mars_data = scrape_mars.scrape()
-    mars_collection.update({}, mars_data, upsert=True)
+    
+    db.mars.insert_one(mars_data)
+    #mars_collection.update({}, mars_data, upsert=True)
     return redirect("/", code=302)
 
 if __name__ == "__main__":
