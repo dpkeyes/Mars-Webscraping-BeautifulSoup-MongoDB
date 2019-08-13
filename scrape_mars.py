@@ -139,7 +139,7 @@ def scrape():
     # Define variables representing outputs of functions
     news_title, news_p = mars_news()
     #image = featured_image()
-    tweet = mars_weather()
+    tweet = mars_tweet()
     table = mars_table()
     hemispheres = mars_hemispheres()
     
@@ -153,5 +153,6 @@ def scrape():
     }
 
     return scrape_dict
+    print(scrape_dict)
 
 scrape()
