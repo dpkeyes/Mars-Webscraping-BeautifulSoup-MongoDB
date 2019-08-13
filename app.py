@@ -8,12 +8,12 @@ app = Flask(__name__)
 # Use flask_pymongo to set up mongo connection
 mongo = PyMongo(app, uri="mongodb://localhost:27017/mars_app")
 
-# Set up application for index.html grabbing data from MongoDB
-# @app.route("/")
-# def index():
-#     #mars = mongo.db.mars.find_one() ### replace with code that pulls specific things 
-#     # puts them into an index.html document
-#     return render_template("index.html", listings=listings)
+# Set up application for index.html grabbing data from MongoDB.
+# NOT SURE IF THIS IS RIGHT, SPECIFICALLY THE find_one() part!!
+@app.route("/")
+def index():
+    mars = mongo.db.mars.find_all()
+    return render_template("index.html", mars=mars)
 
 # Set up application to create a MongoDB collection
 @app.route("/scrape")

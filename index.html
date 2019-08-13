@@ -18,8 +18,95 @@
                 <div class="col-md-12">
                     <div class="bs-component">
                         <div class="jumbotron">
-                            <h1>Mission to Mars</h1>
+                            <h1 class="heading">Mission to Mars</h1>
                             <button type="button" class="btn btn-warning btn-large">Scrape New Data</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="heading">Latest Mars News</h3>
+                    <h5>{{mars.article_headline}}</h5>
+                    <p>{{mars.article_description}}</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="heading">Current Weather on Mars</h3>
+                    <p>{{mars.tweet}}</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-8">
+                    <h3 class="heading">Featured Mars Image</h3>
+                    <img src={{mars.featured_image}}>
+                </div>
+
+                <div class="col-md-4">
+                    <h3 class="heading">Mars Facts</h3>
+                    <div class="bs-component">
+                        <div class="table-responsive">
+                            <table class="table table-light table-hover">
+                                <thead>
+                                    <tr style="text-align: left;">
+                                        <th>PLACEHOLDER</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr>
+                                        <td>PLACEHOLDER</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>    
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="bs-component">
+                        <div class="jumbotron">
+                            <h3>
+                                Mars Hemispheres
+                            </h3>
+    
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="card">
+                                            <div class="card-header">Valles Marineris</div>
+                                            <img class="card-img-top" src={{mars.hemisphere_images[3]['img_url']}} alt="Valles Marineris">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="card">
+                                                <div class="card-header">Cerberus</div>
+                                                <img class="card-img-top" src={{mars.hemisphere_images[0]['img_url']}} alt="Cerberus">
+                                        </div>
+                                    </div>
+                                </div>
+    
+                                <div class="row top-buffer">
+                                    <div class="col-md-6">
+                                        <div class="card">
+                                                <div class="card-header">Schiaparelli</div>
+                                                <img class="card-img-top" src={{mars.hemisphere_images[1]['img_url']}} alt="Schiaparelli">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="card">
+                                            <div class="card-header">Syrtis Major</div>
+                                            <img class="card-img-top" src={{mars.hemisphere_images[2]['img_url']}} alt="Syrtis Major">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
