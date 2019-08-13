@@ -190,7 +190,4 @@ def scrape():
         'hemisphere_images': hemispheres
     }
 
-    print(scrape_dict)
     return scrape_dict
-
-scrape()
