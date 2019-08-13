@@ -26,7 +26,7 @@ def mars_news():
     news_p = soup.find('div', class_='article_teaser_body').text
 
     # Close the browser
-    browser.windows[0].close()
+    #browser.windows[0].close()
     
     return news_title, news_p
 
@@ -56,7 +56,7 @@ def featured_image():
     featured_image_url = base_url + featured_image_path
 
     # Close the browser
-    browser.windows[0].close()
+    #browser.windows[0].close()
 
     return featured_image_url
 
@@ -83,7 +83,7 @@ def mars_tweet():
     mars_weather = mars_weather.replace('\n', ' ')
 
     # Close the browser
-    browser.windows[0].close()
+    #browser.windows[0].close()
     
     return mars_weather
 
@@ -114,7 +114,7 @@ def mars_table():
     final_table = mars_facts_dataframe.to_html()
 
     # Close the browser
-    browser.windows[0].close()
+    #browser.windows[0].close()
 
     return final_table
 
@@ -158,7 +158,7 @@ def mars_hemispheres():
         hemisphere_image_urls.append(temp_dict)
     
     # Close the browser
-    browser.windows[0].close()
+    #browser.windows[0].close()
 
     return hemisphere_image_urls
 
