@@ -12,7 +12,7 @@ mongo = PyMongo(app, uri="mongodb://localhost:27017/mars_app")
 # NOT SURE IF THIS IS RIGHT, SPECIFICALLY THE find_one() part!!
 @app.route("/")
 def index():
-    mars = mongo.db.mars.find_all()
+    mars = mongo.db.mars.find_one()
     return render_template("index.html", mars=mars)
 
 # Set up application to create a MongoDB collection
