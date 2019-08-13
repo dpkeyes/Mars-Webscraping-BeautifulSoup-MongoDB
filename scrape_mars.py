@@ -21,13 +21,8 @@ def mars_news():
     soup = BeautifulSoup(response, 'html.parser')
 
     # Find the most recent article (i.e., the top article)
-    news_title = soup.find('li', class_='slide').\
-                      find('div', class_='bottom_gradient').\
-                      find('div').\
-                      find('h3').text
-
-    news_p = soup.find('li', class_='slide').\
-                  find('div', class_='rollover_description_inner').text
+    news_title = soup.find('div', class_='content_title').text
+    news_p = soup.find('div', class_='article_teaser_body').text
     
     return news_title, news_p
 
@@ -156,3 +151,7 @@ def scrape():
         'table': table,
         'hemisphere_images': hemispheres
     }
+
+    return scrape_dict
+
+scrape()
