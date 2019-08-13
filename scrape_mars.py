@@ -21,9 +21,13 @@ def mars_news():
     response = browser.html
     soup = BeautifulSoup(response, 'html.parser')
 
-    # Find the most recent article (i.e., the top article)
-    news_title = soup.find('div', class_='content_title').text
-    news_p = soup.find('div', class_='article_teaser_body').text
+    # Find all the artcicle data
+    all_titles = soup.find_all('div', class_='content_title')
+    all_descriptions = soup.find_all('div', class_='article_teaser_body')
+
+    # Find the top most article data
+    news_title = all_titles[0].text
+    news_p = all_descriptions[0].text
 
     # Close the browser
     #browser.windows[0].close()
@@ -176,6 +180,7 @@ def scrape():
     table = mars_table()
     hemispheres = mars_hemispheres()
     
+    # Define dictionary
     scrape_dict = {
         'article_headline': news_title,
         'article_description': news_p,
