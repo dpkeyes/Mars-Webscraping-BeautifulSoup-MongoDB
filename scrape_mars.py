@@ -1,6 +1,7 @@
 # Import dependencies
 import pandas as pd
 import requests
+import time
 
 from bs4 import BeautifulSoup
 from splinter import Browser
@@ -22,12 +23,11 @@ def mars_news():
     soup = BeautifulSoup(response, 'html.parser')
 
     # Find all the artcicle data
-    all_titles = soup.find_all('div', class_='content_title')
-    all_descriptions = soup.find_all('div', class_='article_teaser_body')
-
-    # Find the top most article data
-    news_title = all_titles[0].text
-    news_p = all_descriptions[0].text
+    try:
+        news_title = soup.find('div', class_='content_title').text
+        news_p = soup.find('div', class_='article_teaser_body').text
+    except:
+        pass
 
     # Close the browser
     browser.quit()
@@ -36,33 +36,33 @@ def mars_news():
 
 ## -------------------------------------------------------------------------------
 
-# # Define function to grab the featured image from JPL Mars Space Images website
-# def featured_image():
+# Define function to grab the featured image from JPL Mars Space Images website
+def featured_image():
 
-#     # Define executable path and create a 'browser' instance
-#     executable_path = {'executable_path': '/usr/local/bin/chromedriver'}
-#     browser = Browser('chrome', **executable_path, headless=False)
+    # Define executable path and create a 'browser' instance
+    executable_path = {'executable_path': '/usr/local/bin/chromedriver'}
+    browser = Browser('chrome', **executable_path, headless=False)
 
-#     # Define url (base to be used in final url path calculation and mars specific for page visit),
-#     # use splinter to visit the url, navigate the site, get the response object, 
-#     # and create the beautiful soup object.
-#     base_url = 'https://www.jpl.nasa.gov'
-#     mars_url = 'https://www.jpl.nasa.gov/spaceimages/?search=&category=Mars'
-#     browser.visit(mars_url)
+    # Define url (base to be used in final url path calculation and mars specific for page visit),
+    # use splinter to visit the url, navigate the site, get the response object, 
+    # and create the beautiful soup object.
+    base_url = 'https://www.jpl.nasa.gov'
+    mars_url = 'https://www.jpl.nasa.gov/spaceimages/?search=&category=Mars'
+    browser.visit(mars_url)
 
-#     featured_image_xpath = '//*[@id="full_image"]'
-#     browser.find_by_xpath(featured_image_xpath)[0].click()
-#     response = browser.html
-#     soup = BeautifulSoup(response, 'html.parser')
+    featured_image_xpath = '//*[@id="full_image"]'
+    browser.find_by_xpath(featured_image_xpath)[0].click()
+    response = browser.html
+    soup = BeautifulSoup(response, 'html.parser')
 
-#     # Find the featured image url. 
-#     featured_image_path = soup.find_all('img', class_='fancybox-image')[0]['src']
-#     featured_image_url = base_url + featured_image_path
+    # Find the featured image url. 
+    featured_image_path = soup.find_all('img', class_='fancybox-image')[0]['src']
+    featured_image_url = base_url + featured_image_path
 
-#     # Close the browser
-#     browser.quit()
+    # Close the browser
+    browser.quit()
 
-#     return featured_image_url
+    return featured_image_url
 
 ## -------------------------------------------------------------------------------
 
@@ -175,16 +175,20 @@ def scrape():
     
     # Define variables representing outputs of functions
     news_title, news_p = mars_news()
-    # image = featured_image()
+    time.sleep(2.5)
+    image = featured_image()
+    time.sleep(2.5)
     tweet = mars_tweet()
+    time.sleep(2.5)
     table = mars_table()
+    time.sleep(2.5)
     hemispheres = mars_hemispheres()
     
     # Define dictionary
     scrape_dict = {
         'article_headline': news_title,
         'article_description': news_p,
-        # 'featured_image': image,
+        'featured_image': image,
         'tweet': tweet,
         'table': table,
         'hemisphere_images': hemispheres
