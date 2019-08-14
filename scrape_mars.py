@@ -20,12 +20,12 @@ def mars_news():
     url = 'https://mars.nasa.gov/news/?page=0&per_page=40&order=publish_date+desc%2Ccreated_at+desc&search=&category=19%2C165%2C184%2C204&blank_scope=Latest'
     browser.visit(url)
     response = browser.html
-    soup = BeautifulSoup(response, 'html.parser')
+    news_soup = BeautifulSoup(response, 'html.parser')
 
     # Find all the artcicle data
     try:
-        news_title = soup.find('div', class_='content_title').text
-        news_p = soup.find('div', class_='article_teaser_body').text
+        news_title = news_soup.find('div', class_='content_title').text
+        news_p = news_soup.find('div', class_='article_teaser_body').text
     except:
         pass
 
@@ -53,10 +53,13 @@ def featured_image():
     featured_image_xpath = '//*[@id="full_image"]'
     browser.find_by_xpath(featured_image_xpath)[0].click()
     response = browser.html
-    soup = BeautifulSoup(response, 'html.parser')
+    image_soup = BeautifulSoup(response, 'html.parser')
 
     # Find the featured image url. 
-    featured_image_path = soup.find_all('img', class_='fancybox-image')[0]['src']
+    try:
+        featured_image_path = image_soup.find('img', class_='fancybox-image')['src']
+    except:
+        pass
     featured_image_url = base_url + featured_image_path
 
     # Close the browser
@@ -77,10 +80,10 @@ def mars_tweet():
     url = 'https://twitter.com/marswxreport?lang=en'
     browser.visit(url)
     response = browser.html
-    soup = BeautifulSoup(response, 'html.parser')
+    tweet_soup = BeautifulSoup(response, 'html.parser')
 
     # Find the most recent tweet (i.e., the top most tweet)
-    mars_weather = soup.find('p', class_='TweetTextSize TweetTextSize--normal js-tweet-text tweet-text').\
+    mars_weather = tweet_soup.find('p', class_='TweetTextSize TweetTextSize--normal js-tweet-text tweet-text').\
                         contents[0]
 
     # Clean up the text by replacing \n's with spaces and removing the url at the end.
@@ -104,10 +107,10 @@ def mars_table():
     url = 'https://space-facts.com/mars/'
     browser.visit(url)
     response = browser.html
-    soup = BeautifulSoup(response, 'html.parser')
+    table_soup = BeautifulSoup(response, 'html.parser')
 
     # Find the table and use pandas to extract it into a dataframe.
-    scraped_table = soup.find('table', id='tablepress-p-mars')
+    scraped_table = table_soup.find('table', id='tablepress-p-mars')
     mars_facts_dataframe = pd.read_html(str(scraped_table))[0]
 
     # Remove the column headers and reset the index
@@ -151,10 +154,10 @@ def mars_hemispheres():
 
         # Store the response and create the beautiful soup object
         response = browser.html
-        soup = BeautifulSoup(response, 'html.parser')
+        hemisphere_soup = BeautifulSoup(response, 'html.parser')
 
         # Grab the src from img tag (img_path) and build the correct url
-        img_path = soup.find('img', class_='wide-image')['src']
+        img_path = hemisphere_soup.find('img', class_='wide-image')['src']
         img_url = base_url + img_path
 
         # Store the dictionary entry temporarily and then append it to our list
