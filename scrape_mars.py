@@ -19,6 +19,7 @@ def mars_news():
     # Define url, use splinter to visit the url, get the response object, and create the beautiful soup object.
     url = 'https://mars.nasa.gov/news/?page=0&per_page=40&order=publish_date+desc%2Ccreated_at+desc&search=&category=19%2C165%2C184%2C204&blank_scope=Latest'
     browser.visit(url)
+    time.sleep(1)
     response = browser.html
     news_soup = BeautifulSoup(response, 'html.parser')
 
@@ -49,17 +50,23 @@ def featured_image():
     base_url = 'https://www.jpl.nasa.gov'
     mars_url = 'https://www.jpl.nasa.gov/spaceimages/?search=&category=Mars'
     browser.visit(mars_url)
+    time.sleep(1)
 
     featured_image_xpath = '//*[@id="full_image"]'
     browser.find_by_xpath(featured_image_xpath)[0].click()
+    time.sleep(1)
+
+    # Go one more page to get the high res image
+    high_res_xpath = '//*[@id="fancybox-lock"]/div/div[2]/div/div[1]/a[2]'
+    browser.find_by_xpath(high_res_xpath)[0].click()
+    time.sleep(1)
+
     response = browser.html
     image_soup = BeautifulSoup(response, 'html.parser')
 
     # Find the featured image url. 
-    try:
-        featured_image_path = image_soup.find('img', class_='fancybox-image')['src']
-    except:
-        pass
+    featured_image_path = image_soup.find('figure', class_='lede').\
+                                     find('a')['href']
     featured_image_url = base_url + featured_image_path
 
     # Close the browser
@@ -79,6 +86,7 @@ def mars_tweet():
     # Define url, use splinter to visit the url, get the response object, and create the beautiful soup object.
     url = 'https://twitter.com/marswxreport?lang=en'
     browser.visit(url)
+    time.sleep(1)
     response = browser.html
     tweet_soup = BeautifulSoup(response, 'html.parser')
 
@@ -106,6 +114,7 @@ def mars_table():
     # Define url, use splinter to visit the url, get the response object, and create the beautiful soup object.
     url = 'https://space-facts.com/mars/'
     browser.visit(url)
+    time.sleep(1)
     response = browser.html
     table_soup = BeautifulSoup(response, 'html.parser')
 
@@ -149,8 +158,11 @@ def mars_hemispheres():
     for i in range(len(hemispheres_list)):
         # Visit the page and navigate using splinter
         browser.visit(mars_url)
+        time.sleep(1)
         browser.find_by_xpath(xpath_list[i])[0].click()
+        time.sleep(1)
         browser.find_by_xpath('//*[@id="wide-image-toggle"]')[0].click()
+        time.sleep(1)
 
         # Store the response and create the beautiful soup object
         response = browser.html
