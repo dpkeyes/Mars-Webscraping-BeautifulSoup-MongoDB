@@ -14,7 +14,7 @@ browser = Browser('chrome', **executable_path, headless=False)
 ## -------------------------------------------------------------------------------
 
 # Define function to grab title and description of top news story from mars news website
-def mars_news(browser):
+def mars_news():
 
     # Define url, use splinter to visit the url, get the response object, and create the beautiful soup object.
     url = 'https://mars.nasa.gov/news/?page=0&per_page=40&order=publish_date+desc%2Ccreated_at+desc&search=&category=19%2C165%2C184%2C204&blank_scope=Latest'
@@ -37,7 +37,7 @@ def mars_news(browser):
 ## -------------------------------------------------------------------------------
 
 # Define function to grab the featured image from JPL Mars Space Images website
-def featured_image(browser):
+def featured_image():
 
     # Define url (base to be used in final url path calculation and mars specific for page visit),
     # use splinter to visit the url, navigate the site, get the response object, 
@@ -75,7 +75,7 @@ def featured_image(browser):
 ## -------------------------------------------------------------------------------
 
 # Define function to grab latest Mars Weather Tweet
-def mars_tweet(browser):
+def mars_tweet():
 
     # Define url, use splinter to visit the url, get the response object, and create the beautiful soup object.
     url = 'https://twitter.com/marswxreport?lang=en'
@@ -101,7 +101,7 @@ def mars_tweet(browser):
 ## -------------------------------------------------------------------------------
 
 # Define function to grab Mars Facts Table
-def mars_table(browser):
+def mars_table():
 
     # Define url, use splinter to visit the url, get the response object, and create the beautiful soup object.
     url = 'https://space-facts.com/mars/'
@@ -135,7 +135,7 @@ def mars_table(browser):
 
 # Define function to grab dictionaries of Mars Hemisphere Image URLs stored in a list
 
-def mars_hemispheres(browser):
+def mars_hemispheres():
 
     # Define base url and mars search url, define lists for hemisphere names and for image_urls,
     # iterate through each hemisphere type to find the src of the image via beautiful soup, and populate the dictionary.
@@ -182,14 +182,14 @@ def mars_hemispheres(browser):
 # Define function that combines all functions above to return a single dictionary
 # with all the relevant scraped data
 
-def scrape(browser):
+def scrape():
     
     # Define variables representing outputs of functions
-    news_title, news_p = mars_news(browser)
-    image = featured_image(browser)
-    tweet = mars_tweet(browser)
-    table = mars_table(browser)
-    hemispheres = mars_hemispheres(browser)
+    news_title, news_p = mars_news()
+    image = featured_image()
+    tweet = mars_tweet()
+    table = mars_table()
+    hemispheres = mars_hemispheres()
     
     # Define dictionary
     scrape_dict = {
@@ -201,5 +201,4 @@ def scrape(browser):
         'hemisphere_images': hemispheres
     }
 
-    browser.quit()
     return scrape_dict
