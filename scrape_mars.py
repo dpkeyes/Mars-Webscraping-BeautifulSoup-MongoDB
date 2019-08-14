@@ -201,4 +201,5 @@ def scrape(browser):
         'hemisphere_images': hemispheres
     }
 
+    browser.quit()
     return scrape_dict
