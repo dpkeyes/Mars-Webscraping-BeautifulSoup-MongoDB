@@ -122,11 +122,8 @@ def mars_table():
     # Extract table into a dataframe
     mars_facts_dataframe = pd.read_html(str(scraped_table))[0]
 
-    # Remove the column headers and reset the index
-    mars_facts_dataframe = mars_facts_dataframe.set_index(0)
-
     # Convert the table to an html string
-    final_table = mars_facts_dataframe.to_html(header=False)
+    final_table = mars_facts_dataframe.to_html(classes="table table-dark table-hover", index=False, header=False, border=0)
 
     return final_table
 
