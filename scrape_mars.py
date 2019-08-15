@@ -121,13 +121,12 @@ def mars_table():
     
     # Extract table into a dataframe
     mars_facts_dataframe = pd.read_html(str(scraped_table))[0]
-    
+
     # Remove the column headers and reset the index
-    mars_facts_dataframe.columns = ['label', 'information']
-    mars_facts_dataframe = mars_facts_dataframe.set_index('label')
+    mars_facts_dataframe = mars_facts_dataframe.set_index(0)
 
     # Convert the table to an html string
-    final_table = mars_facts_dataframe.to_html()
+    final_table = mars_facts_dataframe.to_html(header=False)
 
     return final_table
 
@@ -200,5 +199,7 @@ def scrape():
         'table': table,
         'hemisphere_images': hemispheres
     }
+
+    browser.quit()
 
     return scrape_dict

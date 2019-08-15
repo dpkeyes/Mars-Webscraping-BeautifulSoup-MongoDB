@@ -5428,7 +5428,9 @@
    border-radius: 0.3rem;
  }
 
- .top-buffer { margin-top:20px; }
+ .top-buffer { 
+   margin-top: 20px;
+   }
  
  @media (min-width: 576px) {
    .jumbotron {

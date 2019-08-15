@@ -18,9 +18,9 @@
                 <div class="col-md-12">
                     <div class="bs-component">
                         <div class="jumbotron">
-                            <div style="align-content: center">
-                                <h1 class="heading" style="text-align:center">Mission to Mars</h1>
-                                <button href='/scrape' type="button" class="btn btn-warning btn-large">Scrape New Data</a>
+                            <div class="container text-center">
+                                <h1 class="heading" style="text-align:center; font-size: 60px">Mission to Mars</h1>
+                                <a class="btn btn-warning btn-large" href='/scrape' role="button">Scrape New Data</a>
                             </div>
                         </div>
                     </div>
@@ -29,7 +29,7 @@
 
             <div class="row">
                 <div class="col-md-12">
-                    <h3 class="heading">Latest Mars News</h3>
+                    <h3 class="heading" style="color: #D24936">Latest Mars News</h3>
                     <h5>{{mars.article_headline}}</h5>
                     <p>{{mars.article_description}}</p>
                 </div>
@@ -39,7 +39,7 @@
 
             <div class="row">
                 <div class="col-md-12">
-                    <h3 class="heading">Current Weather on Mars</h3>
+                    <h3 class="heading" style="color: #D24936">Latest Mars Weather Tweet</h3>
                     <p>{{mars.tweet}}</p>
                 </div>
             </div>
@@ -48,30 +48,32 @@
 
             <div class="row">
                 <div class="col-md-8">
-                    <h3 class="heading">Featured Mars Image</h3>
-                    <img src={{mars.featured_image}}>
+                    <h3 class="heading" style="color: #D24936">Featured Mars Image</h3>
+                    <img src={{mars.featured_image}} class="img-fluid">
                 </div>
 
                 <div class="col-md-4">
-                    <h3 class="heading">Mars Facts</h3>
+                    <h3 class="heading" style="color: #D24936">Mars Facts</h3>
                     <div class="bs-component">
                         <div class="table-responsive">
                             <table class="table table-light table-hover">
-                                {{mars.table}}
+                                <table border="1" class="dataframe"> <thead> <tr style="text-align: right;"> <th></th> <th>information</th> </tr> <tr> <th>label</th> <th></th> </tr> </thead> <tbody> <tr> <th>Equatorial Diameter:</th> <td>6,792 km</td> </tr> <tr> <th>Polar Diameter:</th> <td>6,752 km</td> </tr> <tr> <th>Mass:</th> <td>6.39 × 10^23 kg (0.11 Earths)</td> </tr> <tr> <th>Moons:</th> <td>2 (Phobos &amp; Deimos)</td> </tr> <tr> <th>Orbit Distance:</th> <td>227,943,824 km (1.38 AU)</td> </tr> <tr> <th>Orbit Period:</th> <td>687 days (1.9 years)</td> </tr> <tr> <th>Surface Temperature:</th> <td>-87 to -5 °C</td> </tr> <tr> <th>First Record:</th> <td>2nd millennium BC</td> </tr> <tr> <th>Recorded By:</th> <td>Egyptian astronomers</td> </tr> </tbody> </table>
+                                
+                                <!-- {{mars.table}} -->
                             </table>
                         </div>
                     </div>    
                 </div>
             </div>
 
+            <hr class="my-4">
+
+            <h3 style="color: #D24936">Mars Hemispheres</h3>
+
             <div class="row">
                 <div class="col-md-12">
                     <div class="bs-component">
                         <div class="jumbotron">
-                            <h3>
-                                Mars Hemispheres
-                            </h3>
-
                             <div class="container">
                                 <div class="row">
                                     <div class="col-md-6">
@@ -88,11 +90,11 @@
                                     </div>
                                 </div>
     
-                                <div class="row top-buffer">
+                                <div class="row" style="margin-top: 20px">
                                     <div class="col-md-6">
                                         <div class="card">
-                                                <div class="card-header">Schiaparelli</div>
-                                                <img class="card-img-top" src={{mars.hemisphere_images[1]['img_url']}} alt="Schiaparelli">
+                                            <div class="card-header">Schiaparelli</div>
+                                            <img class="card-img-top" src={{mars.hemisphere_images[1]['img_url']}} alt="Schiaparelli">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
